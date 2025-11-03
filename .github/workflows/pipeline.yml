@@ -9,9 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-  
       - name: Clonar o código
         uses: actions/checkout@v4
 
@@ -26,5 +24,32 @@ jobs:
           sudo apt-get install -y tidy
           for file in *.html; do
             echo "Validando $file..."
-            tidy -qe "$file" || echo "$file possui avisos ou erros"
+            tidy -qe "$file"
           done
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar o código
+        uses: actions/checkout@v4
+
+      - name: Validar CSS (exemplo)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y csslint
+          for file in *.css; do
+            echo "Validando $file..."
+            csslint "$file"
+          done
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy (exemplo)
+        run: |
+          echo "🚀 Deploy iniciado..."
+          # Coloque aqui seu script de deploy, por exemplo:
+          # rsync, scp, gh-pages, etc.
+          echo "Deploy concluído com sucesso!"
