@@ -49,8 +49,53 @@ jobs:
             csslint "$file"
           done
 
-  deploy:
+  sast:
     needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar o código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Instalar eslint para SAST
+        run: npm install -g eslint
+
+      - name: Rodar SAST (eslint)
+        run: |
+          echo "🔍 Rodando SAST (Static Analysis)..."
+          eslint . || exit 1
+
+  dast:
+    needs: sast
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar o código
+        uses: actions/checkout@v4
+
+      - name: Instalar npm http-server
+        run: npm install -g http-server
+
+      - name: Iniciar servidor e rodar DAST
+        run: |
+          echo "🌐 Iniciando servidor local para DAST..."
+          nohup http-server . -p 8080 &
+          sleep 3
+          echo "🔍 Rodando DAST (curl checks)..."
+          # Exemplo simples de DAST: verifica se a página inicial retorna 200
+          STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" http://localhost:8080)
+          if [ "$STATUS" -ne 200 ]; then
+            echo "DAST falhou: status $STATUS"
+            exit 1
+          else
+            echo "DAST passou com status $STATUS"
+          fi
+
+  deploy:
+    needs: dast
     runs-on: ubuntu-latest
     steps:
       - name: Deploy (exemplo)
