@@ -18,7 +18,7 @@ jobs:
           echo "✅ Código HTML e CSS recebidos com sucesso!"
           ls -la
 
-      - name: Validar HTML (opcional)
+      - name: Validar HTML
         run: |
           sudo apt-get update
           sudo apt-get install -y tidy
@@ -34,10 +34,16 @@ jobs:
       - name: Clonar o código
         uses: actions/checkout@v4
 
-      - name: Validar CSS (exemplo)
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Instalar csslint
+        run: npm install -g csslint
+
+      - name: Validar CSS
         run: |
-          sudo apt-get update
-          sudo apt-get install -y csslint
           for file in *.css; do
             echo "Validando $file..."
             csslint "$file"
@@ -50,6 +56,6 @@ jobs:
       - name: Deploy (exemplo)
         run: |
           echo "🚀 Deploy iniciado..."
-          # Coloque aqui seu script de deploy, por exemplo:
+          # Coloque aqui seu script de deploy real, por exemplo:
           # rsync, scp, gh-pages, etc.
           echo "Deploy concluído com sucesso!"
