@@ -61,8 +61,8 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Instalar eslint para SAST
-        run: npm install -g eslint
+      - name: Instalar ESLint 8
+        run: npm install -g eslint@8
 
       - name: Rodar SAST (eslint)
         run: |
