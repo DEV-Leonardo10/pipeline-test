@@ -25,6 +25,11 @@ jobs:
       - name: Clonar o código
         uses: actions/checkout@v4
 
+      - name: Validar HTML com CLI
+        run: |
+          npm install --save-dev htmllint-cli
+          npx htmllint "**/*.html" || exit 1
+
       - name: Validar HTML
         run: |
           sudo apt-get update
@@ -33,7 +38,7 @@ jobs:
             echo "Validando $file..."
             tidy -qe "$file" || exit 1
           done
-
+    
       - name: Validar CSS
         run: |
           npm install --save-dev stylelint stylelint-config-standard
