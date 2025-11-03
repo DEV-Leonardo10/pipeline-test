@@ -1,59 +1,34 @@
-/* Estilo geral da página */
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #61c67c;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-/* Caixa do formulário */
-.container {
-  background-color: white;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-  width: 300px;
-}
-
-/* Título */
-.container h2 {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
   text-align: center;
-  margin-bottom: 20px;
-  color: #333;
 }
 
-/* Campos e labels */
-label {
-  display: block;
-  margin-bottom: 5px;
-  color: #333;
-  font-weight: bold;
-}
-
-input {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-}
-
-/* Botão */
-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #4CAF50;
-  border: none;
-  border-radius: 5px;
+header {
+  background-color: #0078d7;
   color: white;
-  font-weight: bold;
+  padding: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #0078d7;
+  color: white;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #005fa3;
+}
+
+footer {
+  margin-top: 40px;
+  padding: 10px;
+  font-size: 0.9em;
+  color: #666;
 }
